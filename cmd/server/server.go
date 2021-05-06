@@ -11,7 +11,6 @@ import (
 	"github.com/KPI-KMD/lab2-term2/httptools"
 	"github.com/KPI-KMD/lab2-term2/signal"
 )
-
 var port = flag.Int("port", 8080, "server port")
 
 const confResponseDelaySec = "CONF_RESPONSE_DELAY_SEC"
@@ -34,6 +33,7 @@ func main() {
 	report := make(Report)
 
 	h.HandleFunc("/api/v1/some-data", func(rw http.ResponseWriter, r *http.Request) {
+		_ = os.Setenv(confResponseDelaySec, "1")
 		respDelayString := os.Getenv(confResponseDelaySec)
 		if delaySec, parseErr := strconv.Atoi(respDelayString); parseErr == nil && delaySec > 0 && delaySec < 300 {
 			time.Sleep(time.Duration(delaySec) * time.Second)
