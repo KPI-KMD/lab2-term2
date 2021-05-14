@@ -25,4 +25,18 @@ go_tested_binary {
   testSrcs: ["cmd/lb/*_test.go"]
     // TODO: Додайте запуск тестів для балансувальника. DONE
 }
+
 // TODO: Додайте модуль для інтеграційних тестів.
+go_tested_binary {
+  name: "integration",
+  pkg: "github.com/KPI-KMD/lab2-term2/integration",
+  srcs: [
+      "httptools/**/*.go",
+      "signal/**/*.go",
+      "cmd/lb/*.go",
+      "cmd/server/*.go"
+    ],
+  testPkg: "./integration",
+  srcsExclude: ["**/*_test.go"],
+  testSrcs: ["integration/*_test.go"]
+}
